@@ -34,7 +34,7 @@ var defaultPluginsConfig = config.PluginsConfig{
 		{
 			LocatorWithResolverConfig: config.ToLocatorWithResolverConfig(config.LocatorWithResolverConfig{
 				Locator: config.ToLocatorConfig(config.LocatorConfig{
-					ID: "com.palantir.distgo:dist-plugin:1.0.0-rc13",
+					ID: "com.palantir.distgo:dist-plugin:1.0.0-rc15",
 				}),
 			}),
 		},
@@ -131,7 +131,7 @@ var defaultPluginsConfig = config.PluginsConfig{
 		{
 			LocatorWithResolverConfig: config.ToLocatorWithResolverConfig(config.LocatorWithResolverConfig{
 				Locator: config.ToLocatorConfig(config.LocatorConfig{
-					ID: "com.palantir.go-license:license-plugin:1.0.0-rc4",
+					ID: "com.palantir.godel-license-plugin:license-plugin:1.0.0-rc1",
 				}),
 			}),
 		},
