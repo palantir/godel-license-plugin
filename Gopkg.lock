@@ -75,10 +75,11 @@
     "golicense/config/internal/legacy",
     "golicense/config/internal/v0"
   ]
-  revision = "5aa3c94d69ee93db3322f8130365ff28db647f75"
-  version = "v1.0.0-rc4"
+  revision = "5387dc43f48b9cba616ce7a978c96522820432ba"
+  version = "v1.0.0"
 
 [[projects]]
+  branch = "master"
   name = "github.com/palantir/godel"
   packages = [
     "framework/artifactresolver",
@@ -107,8 +108,7 @@
     "pkg/products",
     "pkg/versionedconfig"
   ]
-  revision = "e952ea3e373a433e2a8a8a3cdfb06b0de0b35462"
-  version = "v2.0.0-rc10"
+  revision = "d37f4748b5d2615535458a5d7815f82f3b659cb9"
 
 [[projects]]
   branch = "master"
@@ -192,6 +192,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "3cbace51f2a2ea66a9617a590f897711d67dba1418d86a40c8ba5e8a02d95bd3"
+  inputs-digest = "ff97cb73b16ee5c293e1fe8623dbd2da084df722a109796c965b4e0564519999"
   solver-name = "gps-cdcl"
   solver-version = 1
