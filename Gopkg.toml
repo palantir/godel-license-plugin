@@ -31,15 +31,7 @@
 
 [[constraint]]
   name = "github.com/palantir/go-license"
-  version = "1.0.0"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/palantir/godel"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/palantir/pkg"
+  version = "1.1.0"
 
 [[constraint]]
   name = "github.com/spf13/cobra"
