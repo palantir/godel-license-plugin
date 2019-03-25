@@ -22,11 +22,11 @@ var (
 				return err
 			}
 			if godelConfigFileFlagVal != "" {
-				cfgVal, err := godelconfig.ReadGodelConfigFromFile(godelConfigFileFlagVal)
+				excludes, err := godelconfig.ReadGodelConfigExcludesFromFile(godelConfigFileFlagVal)
 				if err != nil {
 					return err
 				}
-				projectCfg.Exclude.Add(cfgVal.Exclude)
+				projectCfg.Exclude.Add(excludes)
 			}
 			projectParam, err := projectCfg.ToParam()
 			if err != nil {
