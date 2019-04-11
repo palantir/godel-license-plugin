@@ -133,6 +133,14 @@
   version = "v2.14.0"
 
 [[projects]]
+  digest = "1:cdfd88252b55081a32a72ca9c2ca8b13b102240214fc53117542ef576a1014ea"
+  name = "github.com/palantir/godel-license-plugin"
+  packages = ["cmd"]
+  pruneopts = "UT"
+  revision = "094296bdf312a5c117f34b010ee1ad84b91a48a0"
+  version = "v1.2.0"
+
+[[projects]]
   digest = "1:3daca7f2d75df7e74dce40464a5cea6e14989be34b4364cdbc38c12ea2e5d34c"
   name = "github.com/palantir/pkg"
   packages = [
@@ -242,6 +250,7 @@
     "github.com/palantir/go-license/commoncmd",
     "github.com/palantir/go-license/golicense",
     "github.com/palantir/go-license/golicense/config",
+    "github.com/palantir/godel-license-plugin/cmd",
     "github.com/palantir/godel/framework/godel/config",
     "github.com/palantir/godel/framework/godellauncher",
     "github.com/palantir/godel/framework/pluginapi",
