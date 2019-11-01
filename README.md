@@ -1,3 +1,7 @@
+<p align="right">
+<a href="https://autorelease.general.dmz.palantir.tech/palantir/godel-license-plugin"><img src="https://img.shields.io/badge/Perform%20an-Autorelease-success.svg" alt="Autorelease"></a>
+</p>
+
 godel-license-plugin
 ====================
 `godel-license-plugin` is a [godel](https://github.com/palantir/godel) plugin for [`go-license`](https://github.com/palantir/go-license). It provides a task that can add, remove and verify license headers on project files. 
