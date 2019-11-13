@@ -6,7 +6,7 @@ package cmd
 
 import (
 	"github.com/palantir/go-license/golicense/config"
-	"github.com/palantir/godel/framework/pluginapi"
+	"github.com/palantir/godel/v2/framework/pluginapi"
 )
 
 var upgradeConfigCmd = pluginapi.CobraUpgradeConfigCmd(config.UpgradeConfig)

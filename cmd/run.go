@@ -7,8 +7,8 @@ package cmd
 import (
 	"github.com/palantir/go-license/commoncmd"
 	"github.com/palantir/go-license/golicense"
-	godelconfig "github.com/palantir/godel/framework/godel/config"
-	"github.com/palantir/godel/framework/godellauncher"
+	godelconfig "github.com/palantir/godel/v2/framework/godel/config"
+	"github.com/palantir/godel/v2/framework/godellauncher"
 	"github.com/palantir/pkg/matcher"
 	"github.com/spf13/cobra"
 )
