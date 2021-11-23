@@ -1,0 +1,5 @@
+type: fix
+fix:
+  description: Updates github.com/ulikunitz/xz module to v0.5.10 to fix security issue.
+  links:
+  - https://github.com/palantir/godel-license-plugin/pull/83
