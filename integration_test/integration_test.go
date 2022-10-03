@@ -7,15 +7,12 @@ package integration_test
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
 	"testing"
 	"time"
 
-	"github.com/nmiyake/pkg/dirs"
-	"github.com/nmiyake/pkg/gofiles"
 	"github.com/palantir/godel/v2/framework/pluginapitester"
 	"github.com/palantir/godel/v2/pkg/products"
 	"github.com/stretchr/testify/assert"
@@ -34,9 +31,7 @@ func TestLicense(t *testing.T) {
 	pluginPath, err := products.Bin("license-plugin")
 	require.NoError(t, err)
 
-	projectDir, cleanup, err := dirs.TempDir("", "")
-	require.NoError(t, err)
-	defer cleanup()
+	projectDir := t.TempDir()
 
 	const licenseYML = `header: |
   /*
@@ -58,12 +53,12 @@ func TestLicense(t *testing.T) {
 
 	err = os.MkdirAll(path.Join(projectDir, "godel", "config"), 0755)
 	require.NoError(t, err)
-	err = ioutil.WriteFile(path.Join(projectDir, "godel", "config", "godel.yml"), []byte(godelYML), 0644)
+	err = os.WriteFile(path.Join(projectDir, "godel", "config", "godel.yml"), []byte(godelYML), 0644)
 	require.NoError(t, err)
-	err = ioutil.WriteFile(path.Join(projectDir, "godel", "config", "license-plugin.yml"), []byte(licenseYML), 0644)
+	err = os.WriteFile(path.Join(projectDir, "godel", "config", "license-plugin.yml"), []byte(licenseYML), 0644)
 	require.NoError(t, err)
 
-	specs := []gofiles.GoFileSpec{
+	specs := []goFileSpec{
 		{
 			RelPath: "foo.go",
 			Src:     "package foo",
@@ -74,7 +69,8 @@ func TestLicense(t *testing.T) {
 		},
 	}
 
-	files, err := gofiles.Write(projectDir, specs)
+	err = writeGoFiles(projectDir, specs)
+	// files, err := gofiles.Write(projectDir, specs)
 	require.NoError(t, err)
 
 	want := fmt.Sprintf(`/*
@@ -100,12 +96,12 @@ package foo`, time.Now().Year())
 	defer runPluginCleanup()
 	require.NoError(t, err, "Output: %s", outputBuf.String())
 
-	content, err := ioutil.ReadFile(files["foo.go"].Path)
+	content, err := os.ReadFile(filepath.Join(projectDir, "foo.go"))
 	require.NoError(t, err)
 	assert.Equal(t, want, string(content))
 
 	want = `package bar`
-	content, err = ioutil.ReadFile(files["vendor/github.com/bar.go"].Path)
+	content, err = os.ReadFile(filepath.Join(projectDir, "vendor/github.com/bar.go"))
 	require.NoError(t, err)
 	assert.Equal(t, want, string(content))
 }
@@ -114,9 +110,7 @@ func TestLicenseVerify(t *testing.T) {
 	pluginPath, err := products.Bin("license-plugin")
 	require.NoError(t, err)
 
-	projectDir, cleanup, err := dirs.TempDir("", "")
-	require.NoError(t, err)
-	defer cleanup()
+	projectDir := t.TempDir()
 
 	const licenseYML = `header: |
   /*
@@ -137,12 +131,12 @@ func TestLicenseVerify(t *testing.T) {
 `
 	err = os.MkdirAll(path.Join(projectDir, "godel", "config"), 0755)
 	require.NoError(t, err)
-	err = ioutil.WriteFile(path.Join(projectDir, "godel", "config", "godel.yml"), []byte(godelYML), 0644)
+	err = os.WriteFile(path.Join(projectDir, "godel", "config", "godel.yml"), []byte(godelYML), 0644)
 	require.NoError(t, err)
-	err = ioutil.WriteFile(path.Join(projectDir, "godel", "config", "license-plugin.yml"), []byte(licenseYML), 0644)
+	err = os.WriteFile(path.Join(projectDir, "godel", "config", "license-plugin.yml"), []byte(licenseYML), 0644)
 	require.NoError(t, err)
 
-	specs := []gofiles.GoFileSpec{
+	specs := []goFileSpec{
 		{
 			RelPath: "foo.go",
 			Src:     "package foo",
@@ -173,7 +167,7 @@ package bar`,
 		},
 	}
 
-	files, err := gofiles.Write(projectDir, specs)
+	err = writeGoFiles(projectDir, specs)
 	require.NoError(t, err)
 
 	outputBuf := &bytes.Buffer{}
@@ -186,7 +180,7 @@ package bar`,
 	wd, err := os.Getwd()
 	require.NoError(t, err)
 
-	fooRelPath, err := filepath.Rel(wd, files["foo.go"].Path)
+	fooRelPath, err := filepath.Rel(wd, filepath.Join(projectDir, "foo.go"))
 	require.NoError(t, err)
 
 	assert.Equal(t, fmt.Sprintf("1 file does not have the correct license header:\n\t%s\n", fooRelPath), outputBuf.String())
@@ -302,4 +296,28 @@ custom-headers:
 			},
 		},
 	)
+}
+
+type goFileSpec struct {
+	RelPath string
+	Src     string
+}
+
+// writeGoFiles to the provided directory as the root directory.
+func writeGoFiles(dir string, files []goFileSpec) error {
+	dir, err := filepath.Abs(dir)
+	if err != nil {
+		return err
+	}
+
+	for _, currFile := range files {
+		filePath := filepath.Join(dir, currFile.RelPath)
+		if err := os.MkdirAll(filepath.Dir(filePath), 0755); err != nil {
+			return err
+		}
+		if err := os.WriteFile(filePath, []byte(currFile.Src), 0644); err != nil {
+			return err
+		}
+	}
+	return nil
 }
