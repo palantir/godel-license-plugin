@@ -70,7 +70,6 @@ func TestLicense(t *testing.T) {
 	}
 
 	err = writeGoFiles(projectDir, specs)
-	// files, err := gofiles.Write(projectDir, specs)
 	require.NoError(t, err)
 
 	want := fmt.Sprintf(`/*
