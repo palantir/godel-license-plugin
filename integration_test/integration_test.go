@@ -7,15 +7,12 @@ package integration_test
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
 	"testing"
 	"time"
 
-	"github.com/nmiyake/pkg/dirs"
-	"github.com/nmiyake/pkg/gofiles"
 	"github.com/palantir/godel/v2/framework/pluginapitester"
 	"github.com/palantir/godel/v2/pkg/products"
 	"github.com/stretchr/testify/assert"
@@ -34,10 +31,6 @@ func TestLicense(t *testing.T) {
 	pluginPath, err := products.Bin("license-plugin")
 	require.NoError(t, err)
 
-	projectDir, cleanup, err := dirs.TempDir("", "")
-	require.NoError(t, err)
-	defer cleanup()
-
 	const licenseYML = `header: |
   /*
   Copyright {{YEAR}} Palantir Technologies, Inc.
@@ -55,27 +48,6 @@ func TestLicense(t *testing.T) {
   limitations under the License.
   */
 `
-
-	err = os.MkdirAll(path.Join(projectDir, "godel", "config"), 0755)
-	require.NoError(t, err)
-	err = ioutil.WriteFile(path.Join(projectDir, "godel", "config", "godel.yml"), []byte(godelYML), 0644)
-	require.NoError(t, err)
-	err = ioutil.WriteFile(path.Join(projectDir, "godel", "config", "license-plugin.yml"), []byte(licenseYML), 0644)
-	require.NoError(t, err)
-
-	specs := []gofiles.GoFileSpec{
-		{
-			RelPath: "foo.go",
-			Src:     "package foo",
-		},
-		{
-			RelPath: "vendor/github.com/bar.go",
-			Src:     "package bar",
-		},
-	}
-
-	files, err := gofiles.Write(projectDir, specs)
-	require.NoError(t, err)
 
 	want := fmt.Sprintf(`/*
 Copyright %d Palantir Technologies, Inc.
@@ -95,17 +67,30 @@ limitations under the License.
 
 package foo`, time.Now().Year())
 
+	projectDir := t.TempDir()
+	err = os.MkdirAll(path.Join(projectDir, "godel", "config"), 0755)
+	require.NoError(t, err)
+	err = os.WriteFile(path.Join(projectDir, "godel", "config", "godel.yml"), []byte(godelYML), 0644)
+	require.NoError(t, err)
+	err = os.WriteFile(path.Join(projectDir, "godel", "config", "license-plugin.yml"), []byte(licenseYML), 0644)
+	require.NoError(t, err)
+
+	writeFiles(t, projectDir, map[string]string{
+		"foo.go":                   "package foo",
+		"vendor/github.com/bar.go": "package bar",
+	})
+
 	outputBuf := &bytes.Buffer{}
 	runPluginCleanup, err := pluginapitester.RunPlugin(pluginapitester.NewPluginProvider(pluginPath), nil, "license", nil, projectDir, false, outputBuf)
 	defer runPluginCleanup()
 	require.NoError(t, err, "Output: %s", outputBuf.String())
 
-	content, err := ioutil.ReadFile(files["foo.go"].Path)
+	content, err := os.ReadFile(filepath.Join(projectDir, "foo.go"))
 	require.NoError(t, err)
 	assert.Equal(t, want, string(content))
 
 	want = `package bar`
-	content, err = ioutil.ReadFile(files["vendor/github.com/bar.go"].Path)
+	content, err = os.ReadFile(filepath.Join(projectDir, "vendor/github.com/bar.go"))
 	require.NoError(t, err)
 	assert.Equal(t, want, string(content))
 }
@@ -113,10 +98,6 @@ package foo`, time.Now().Year())
 func TestLicenseVerify(t *testing.T) {
 	pluginPath, err := products.Bin("license-plugin")
 	require.NoError(t, err)
-
-	projectDir, cleanup, err := dirs.TempDir("", "")
-	require.NoError(t, err)
-	defer cleanup()
 
 	const licenseYML = `header: |
   /*
@@ -135,21 +116,17 @@ func TestLicenseVerify(t *testing.T) {
   limitations under the License.
   */
 `
+	projectDir := t.TempDir()
 	err = os.MkdirAll(path.Join(projectDir, "godel", "config"), 0755)
 	require.NoError(t, err)
-	err = ioutil.WriteFile(path.Join(projectDir, "godel", "config", "godel.yml"), []byte(godelYML), 0644)
+	err = os.WriteFile(path.Join(projectDir, "godel", "config", "godel.yml"), []byte(godelYML), 0644)
 	require.NoError(t, err)
-	err = ioutil.WriteFile(path.Join(projectDir, "godel", "config", "license-plugin.yml"), []byte(licenseYML), 0644)
+	err = os.WriteFile(path.Join(projectDir, "godel", "config", "license-plugin.yml"), []byte(licenseYML), 0644)
 	require.NoError(t, err)
 
-	specs := []gofiles.GoFileSpec{
-		{
-			RelPath: "foo.go",
-			Src:     "package foo",
-		},
-		{
-			RelPath: "bar/bar.go",
-			Src: `/*
+	writeFiles(t, projectDir, map[string]string{
+		"foo.go": "package foo",
+		"bar/bar.go": `/*
 Copyright 2016 Palantir Technologies, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -166,15 +143,8 @@ limitations under the License.
 */
 
 package bar`,
-		},
-		{
-			RelPath: "vendor/github.com/baz.go",
-			Src:     "package baz",
-		},
-	}
-
-	files, err := gofiles.Write(projectDir, specs)
-	require.NoError(t, err)
+		"vendor/github.com/baz.go": "package baz",
+	})
 
 	outputBuf := &bytes.Buffer{}
 	runPluginCleanup, err := pluginapitester.RunPlugin(pluginapitester.NewPluginProvider(pluginPath), nil, "license", []string{
@@ -186,7 +156,7 @@ package bar`,
 	wd, err := os.Getwd()
 	require.NoError(t, err)
 
-	fooRelPath, err := filepath.Rel(wd, files["foo.go"].Path)
+	fooRelPath, err := filepath.Rel(wd, filepath.Join(projectDir, "foo.go"))
 	require.NoError(t, err)
 
 	assert.Equal(t, fmt.Sprintf("1 file does not have the correct license header:\n\t%s\n", fooRelPath), outputBuf.String())
@@ -302,4 +272,17 @@ custom-headers:
 			},
 		},
 	)
+}
+
+func writeFiles(t *testing.T, root string, files map[string]string) {
+	dir, err := filepath.Abs(root)
+	require.NoError(t, err)
+
+	for relPath, content := range files {
+		filePath := filepath.Join(dir, relPath)
+		err = os.MkdirAll(filepath.Dir(filePath), 0755)
+		require.NoError(t, err)
+		err = os.WriteFile(filePath, []byte(content), 0644)
+		require.NoError(t, err)
+	}
 }
