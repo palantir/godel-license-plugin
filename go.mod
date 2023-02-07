@@ -1,6 +1,6 @@
 module github.com/palantir/godel-license-plugin
 
-go 1.19
+go 1.20
 
 require (
 	github.com/palantir/go-license v1.17.0
