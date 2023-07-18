@@ -64,8 +64,8 @@ github.com/nmiyake/pkg/errorstringer
 # github.com/nwaples/rardecode v1.0.0
 ## explicit
 github.com/nwaples/rardecode
-# github.com/palantir/go-license v1.17.0
-## explicit; go 1.19
+# github.com/palantir/go-license v1.28.0
+## explicit; go 1.20
 github.com/palantir/go-license/commoncmd
 github.com/palantir/go-license/golicense
 github.com/palantir/go-license/golicense/config
