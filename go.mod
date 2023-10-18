@@ -3,8 +3,8 @@ module github.com/palantir/godel-license-plugin
 go 1.21
 
 require (
-	github.com/palantir/go-license v1.30.0
-	github.com/palantir/godel/v2 v2.92.0
+	github.com/palantir/go-license v1.31.0
+	github.com/palantir/godel/v2 v2.93.0
 	github.com/palantir/pkg/cobracli v1.2.0
 	github.com/palantir/pkg/matcher v1.2.0
 	github.com/spf13/cobra v1.7.0
@@ -40,7 +40,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/ulikunitz/xz v0.5.10 // indirect
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
-	golang.org/x/sys v0.12.0 // indirect
+	golang.org/x/sys v0.13.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
