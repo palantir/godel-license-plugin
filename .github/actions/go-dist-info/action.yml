@@ -72,7 +72,7 @@ runs:
           GO_MAJOR_VERSION=$(echo "${GO_VERSION}" | sed 's/^go\([0-9][0-9]*\).*$/\1/')
           GO_VERSION="go${GO_MAJOR_VERSION}.${GO_MINOR_VERSION}"
         fi
-        echo "go-dist-version=$(echo $GO_VERSION)" >> $GITHUB_OUTPUT
+        echo "go-dist-version=$(echo $GO_VERSION)" >> "$GITHUB_OUTPUT"
     - id: go-dist-exists
       shell: bash
       run: |
@@ -84,4 +84,4 @@ runs:
         else
           echo "No directory found at ${GO_DIST_DIR_PATH}"
         fi
-        echo "go-dist-exists=$GO_DIST_EXISTS" >> $GITHUB_OUTPUT
+        echo "go-dist-exists=$GO_DIST_EXISTS" >> "$GITHUB_OUTPUT"
