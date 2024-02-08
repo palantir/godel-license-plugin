@@ -3,8 +3,8 @@ module github.com/palantir/godel-license-plugin
 go 1.21
 
 require (
-	github.com/palantir/go-license v1.34.0
-	github.com/palantir/godel/v2 v2.100.0
+	github.com/palantir/go-license v1.35.0
+	github.com/palantir/godel/v2 v2.101.0
 	github.com/palantir/pkg/cobracli v1.2.0
 	github.com/palantir/pkg/matcher v1.2.0
 	github.com/spf13/cobra v1.8.0
