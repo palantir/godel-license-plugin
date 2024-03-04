@@ -4,11 +4,11 @@ go 1.21
 
 require (
 	github.com/palantir/go-license v1.35.0
-	github.com/palantir/godel/v2 v2.104.0
+	github.com/palantir/godel/v2 v2.105.0
 	github.com/palantir/pkg/cobracli v1.2.0
 	github.com/palantir/pkg/matcher v1.2.0
 	github.com/spf13/cobra v1.8.0
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 )
 
 require (
