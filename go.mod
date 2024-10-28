@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	github.com/palantir/go-license v1.39.0
-	github.com/palantir/godel/v2 v2.120.0
+	github.com/palantir/godel/v2 v2.121.0
 	github.com/palantir/pkg/cobracli v1.2.0
 	github.com/palantir/pkg/matcher v1.2.0
 	github.com/spf13/cobra v1.8.1
