@@ -82,7 +82,7 @@ github.com/palantir/go-license/golicense
 github.com/palantir/go-license/golicense/config
 github.com/palantir/go-license/golicense/config/internal/legacy
 github.com/palantir/go-license/golicense/config/internal/v0
-# github.com/palantir/godel/v2 v2.146.0
+# github.com/palantir/godel/v2 v2.147.0
 ## explicit; go 1.25.0
 github.com/palantir/godel/v2/framework/artifactresolver
 github.com/palantir/godel/v2/framework/builtintasks
