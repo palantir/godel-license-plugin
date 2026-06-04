@@ -2,7 +2,7 @@ module github.com/palantir/godel-license-plugin
 
 go 1.26.0
 
-toolchain go1.26.3
+toolchain go1.26.4
 
 require (
 	github.com/palantir/go-license v1.43.0
