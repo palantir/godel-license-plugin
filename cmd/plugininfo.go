@@ -27,7 +27,7 @@ var (
 			"Run license task",
 			pluginapi.TaskInfoCommand("run"),
 			pluginapi.TaskInfoVerifyOptions(
-				pluginapi.VerifyOptionsOrdering(intVar(verifyorder.License)),
+				pluginapi.VerifyOptionsOrdering(new(verifyorder.License)),
 				pluginapi.VerifyOptionsApplyFalseArgs("--verify"),
 			),
 		),
@@ -37,8 +37,3 @@ var (
 		),
 	)
 )
-
-//go:fix inline
-func intVar(val int) *int {
-	return new(val)
-}
