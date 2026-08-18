@@ -5,8 +5,8 @@ go 1.26.0
 toolchain go1.26.5
 
 require (
-	github.com/palantir/go-license v1.45.0
-	github.com/palantir/godel/v2 v2.169.0
+	github.com/palantir/go-license v1.46.0
+	github.com/palantir/godel/v2 v2.170.0
 	github.com/palantir/pkg/cobracli v1.3.0
 	github.com/palantir/pkg/matcher v1.3.0
 	github.com/spf13/cobra v1.10.2
