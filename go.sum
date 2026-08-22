@@ -51,8 +51,8 @@ github.com/nmiyake/pkg/gofiles v1.2.0/go.mod h1:aPXiVvXPwxNanRNuFIRVPYn6eTC4qxjD
 github.com/nwaples/rardecode v1.1.0/go.mod h1:5DzqNKiOdpKKBH87u8VlvAnPZMXcGRhxWkRpHbbfGS0=
 github.com/nwaples/rardecode v1.1.3 h1:cWCaZwfM5H7nAD6PyEdcVnczzV8i/JtotnyW/dD9lEc=
 github.com/nwaples/rardecode v1.1.3/go.mod h1:5DzqNKiOdpKKBH87u8VlvAnPZMXcGRhxWkRpHbbfGS0=
-github.com/palantir/go-license v1.47.0 h1:h9yW1V4kxEkflCIZMce7q8p5PGOvytzko/Tl+8nYvr8=
-github.com/palantir/go-license v1.47.0/go.mod h1:E053GZrJJsWhNJtZUgjZfSpkxE7AHWbNnoTd00jR9Bw=
+github.com/palantir/go-license v1.48.0 h1:rpzJziJAZLjMvEo9iiLV5Bsjh9qaWcVIgdZiorUeAVo=
+github.com/palantir/go-license v1.48.0/go.mod h1:hWnKz1FAdF6M97d/ca3YYQv9rEJTKNna/5rq3V0iEEA=
 github.com/palantir/godel/v2 v2.173.0 h1:NCndRsvJlj/SU4VZys1LFTDzNWriTaKVJO9dc3BZPWI=
 github.com/palantir/godel/v2 v2.173.0/go.mod h1:a363rkPY978gmU8GaRUuChaoeca2Y/2kVVl3LAJdh3k=
 github.com/palantir/pkg v1.1.0 h1:0EhrSUP8oeeh3MUvk7V/UU7WmsN1UiJNTvNj0sN9Cpo=
