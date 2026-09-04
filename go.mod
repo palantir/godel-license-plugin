@@ -7,7 +7,7 @@ toolchain go1.27.1
 require (
 	github.com/palantir/go-license v1.48.0
 	github.com/palantir/godel/v2 v2.178.0
-	github.com/palantir/pkg/cobracli v1.3.0
+	github.com/palantir/pkg/cobracli v1.4.0
 	github.com/palantir/pkg/matcher v1.3.0
 	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.12.1
@@ -35,6 +35,8 @@ require (
 	github.com/palantir/pkg v1.1.0 // indirect
 	github.com/palantir/pkg/pkgpath v1.4.0 // indirect
 	github.com/palantir/pkg/specdir v1.3.0 // indirect
+	github.com/palantir/witchcraft-go-error v1.42.0 // indirect
+	github.com/palantir/witchcraft-go-params v1.38.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.29 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rogpeppe/go-internal v1.16.0 // indirect
