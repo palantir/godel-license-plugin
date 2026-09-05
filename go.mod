@@ -32,7 +32,7 @@ require (
 	github.com/nmiyake/pkg/dirs v1.1.0 // indirect
 	github.com/nmiyake/pkg/errorstringer v1.1.0 // indirect
 	github.com/nwaples/rardecode v1.1.3 // indirect
-	github.com/palantir/pkg v1.1.0 // indirect
+	github.com/palantir/pkg v1.2.0 // indirect
 	github.com/palantir/pkg/pkgpath v1.4.0 // indirect
 	github.com/palantir/pkg/specdir v1.3.0 // indirect
 	github.com/palantir/witchcraft-go-error v1.42.0 // indirect
